@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chatbot Maker AI by Nisar AI Studio - Firestore Schema Blueprint",
+  "version": "1.0.0",
+  "collections": {
+    "users": {
+      "description": "User accounts with profile, role, and quota management",
+      "fields": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string", "optional": true },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "status": { "type": "string", "enum": ["active", "suspended"] },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" },
+        "tier": { "type": "string", "enum": ["free", "pro", "enterprise"] },
+        "messageQuotaMonthly": { "type": "number" },
+        "messagesUsedThisMonth": { "type": "number" }
+      }
+    },
+    "chatbots": {
+      "description": "Chatbot configurations, personality, prompts, theme, and status",
+      "fields": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "welcomeMessage": { "type": "string" },
+        "placeholderText": { "type": "string" },
+        "systemInstruction": { "type": "string" },
+        "personality": { "type": "string" },
+        "language": { "type": "string" },
+        "responseLength": { "type": "string", "enum": ["concise", "balanced", "detailed"] },
+        "temperature": { "type": "number" },
+        "suggestedQuestions": { "type": "array", "items": { "type": "string" } },
+        "theme": {
+          "type": "object",
+          "properties": {
+            "primaryColor": { "type": "string" },
+            "backgroundColor": { "type": "string" },
+            "textColor": { "type": "string" },
+            "userBubbleColor": { "type": "string" },
+            "botBubbleColor": { "type": "string" },
+            "borderRadius": { "type": "string" },
+            "position": { "type": "string", "enum": ["bottom-right", "bottom-left"] }
+          }
+        },
+        "aiProvider": { "type": "string" },
+        "aiModel": { "type": "string" },
+        "maxTokens": { "type": "number" },
+        "status": { "type": "string", "enum": ["draft", "published", "archived"] },
+        "isPublic": { "type": "boolean" },
+        "version": { "type": "number" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      }
+    },
+    "chatbotVersions": {
+      "description": "Historical snapshots of chatbot configurations for rollback",
+      "fields": {
+        "id": { "type": "string" },
+        "chatbotId": { "type": "string" },
+        "userId": { "type": "string" },
+        "versionNumber": { "type": "number" },
+        "snapshot": { "type": "object" },
+        "changeSummary": { "type": "string" },
+        "createdAt": { "type": "timestamp" }
+      }
+    },
+    "knowledgeSources": {
+      "description": "Documents, raw text, and crawled website URLs for RAG",
+      "fields": {
+        "id": { "type": "string" },
+        "chatbotId": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["file", "text", "url"] },
+        "name": { "type": "string" },
+        "sourceUrl": { "type": "string", "optional": true },
+        "content": { "type": "string" },
+        "chunkCount": { "type": "number" },
+        "status": { "type": "string", "enum": ["processing", "indexed", "failed"] },
+        "errorMessage": { "type": "string", "optional": true },
+        "fileSizeBytes": { "type": "number", "optional": true },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      }
+    },
+    "conversations": {
+      "description": "User sessions and conversation threads",
+      "fields": {
+        "id": { "type": "string" },
+        "chatbotId": { "type": "string" },
+        "userId": { "type": "string", "optional": true },
+        "visitorSessionId": { "type": "string" },
+        "title": { "type": "string" },
+        "isPublic": { "type": "boolean" },
+        "messageCount": { "type": "number" },
+        "totalTokens": { "type": "number" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      }
+    },
+    "messages": {
+      "description": "Individual messages in conversations",
+      "fields": {
+        "id": { "type": "string" },
+        "conversationId": { "type": "string" },
+        "chatbotId": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "assistant", "system"] },
+        "content": { "type": "string" },
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sourceId": { "type": "string" },
+              "sourceName": { "type": "string" },
+              "snippet": { "type": "string" }
+            }
+          }
+        },
+        "feedback": { "type": "string", "enum": ["like", "dislike", "none"], "optional": true },
+        "tokens": { "type": "number", "optional": true },
+        "latencyMs": { "type": "number", "optional": true },
+        "createdAt": { "type": "timestamp" }
+      }
+    },
+    "usageRecords": {
+      "description": "Per-user and per-chatbot token and latency telemetry",
+      "fields": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "chatbotId": { "type": "string" },
+        "model": { "type": "string" },
+        "promptTokens": { "type": "number" },
+        "completionTokens": { "type": "number" },
+        "totalTokens": { "type": "number" },
+        "estimatedCostUsd": { "type": "number" },
+        "timestamp": { "type": "timestamp" }
+      }
+    },
+    "auditLogs": {
+      "description": "System and administrative action logs",
+      "fields": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "action": { "type": "string" },
+        "targetResource": { "type": "string" },
+        "details": { "type": "string" },
+        "ipAddress": { "type": "string" },
+        "timestamp": { "type": "timestamp" }
+      }
+    },
+    "abuseReports": {
+      "description": "Visitor and user reports for moderation",
+      "fields": {
+        "id": { "type": "string" },
+        "chatbotId": { "type": "string" },
+        "reportedBy": { "type": "string" },
+        "reason": { "type": "string" },
+        "details": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "investigating", "resolved", "dismissed"] },
+        "createdAt": { "type": "timestamp" }
+      }
+    },
+    "chatbotTemplates": {
+      "description": "50 Reusable chatbot templates across 10 categories",
+      "fields": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "icon": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "systemPrompt": { "type": "string" },
+        "welcomeMessage": { "type": "string" },
+        "suggestedQuestions": { "type": "array", "items": { "type": "string" } },
+        "defaultLanguage": { "type": "string" },
+        "responseStyle": { "type": "string" },
+        "recommendedFeatures": { "type": "array", "items": { "type": "string" } },
+        "configuration": { "type": "object" },
+        "version": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "isFeatured": { "type": "boolean" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      }
+    },
+    "userFavorites": {
+      "description": "User bookmarked chatbot templates",
+      "fields": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "templateId": { "type": "string" },
+        "createdAt": { "type": "timestamp" }
+      }
+    }
+  }
+}

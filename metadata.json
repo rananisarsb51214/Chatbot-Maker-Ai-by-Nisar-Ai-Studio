@@ -1,0 +1,6 @@
+{
+  "name": "Chatbot Maker AI by Nisar AI Studio",
+  "description": "Production-ready platform to create, customize, test, deploy, and manage AI chatbots with custom knowledge bases, RAG, and multi-channel embeds.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
