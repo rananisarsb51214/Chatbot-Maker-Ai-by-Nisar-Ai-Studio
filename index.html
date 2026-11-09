@@ -1,18 +1,539 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chatbot Maker AI by Nisar AI Studio</title>
-    <meta name="description" content="Production-ready platform to create, customize, test, deploy, and manage AI chatbots with custom knowledge bases, RAG, and multi-channel embeds." />
-    <meta property="og:title" content="Chatbot Maker AI by Nisar AI Studio" />
-    <meta property="og:description" content="Production-ready platform to create, customize, test, deploy, and manage AI chatbots with custom knowledge bases, RAG, and multi-channel embeds." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Design AI — by Nisar Studio</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,-apple-system,BlinkMacSystemFont,Roboto,sans-serif}
+body{background:#0f0f1e;color:#fff;padding-bottom:100px;min-height:100vh}
+
+header{
+  background:linear-gradient(135deg,#00c853,#7b2ff7);
+  padding:18px 15px;text-align:center;position:sticky;top:0;z-index:90;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+header h1{font-size:22px;font-weight:800;letter-spacing:-0.02em}
+header p{font-size:12px;opacity:.95;margin-top:2px}
+.phone-badge{
+  display:inline-block;
+  background:rgba(0,0,0,0.25);
+  padding:4px 12px;
+  border-radius:20px;
+  font-size:12px;
+  margin-top:6px;
+  font-weight:600;
+  letter-spacing:0.5px;
+}
+
+.tabs{
+  display:flex;gap:8px;overflow-x:auto;padding:12px 15px;
+  background:#141428;border-bottom:1px solid #2a2a45;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+
+.tab{
+  background:#23233c;padding:8px 18px;border-radius:20px;
+  white-space:nowrap;cursor:pointer;border:1px solid #3d3d60;
+  color:#ccc;font-size:13px;font-weight:600;transition:all .2s ease;
+}
+.tab:hover{color:#fff;border-color:#7b2ff7}
+.tab.active{background:linear-gradient(135deg,#7b2ff7,#9d4edd);color:#fff;border-color:transparent;box-shadow:0 2px 10px rgba(123,47,247,0.4)}
+
+.section{padding:15px;display:none;max-width:960px;margin:0 auto}
+.section.active{display:block}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:12px}
+
+.card{
+  background:#1c1c32;border-radius:16px;overflow:hidden;
+  border:1px solid #2d2d4e;transition:transform .2s ease,border-color .2s ease;
+  display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-3px);border-color:#7b2ff7}
+.card img{width:100%;height:140px;object-fit:cover;background:#2a2a45}
+.card .info{padding:14px;display:flex;flex-direction:column;flex-grow:1}
+.card h3{font-size:14px;font-weight:700;line-height:1.3}
+.card p{font-size:12px;color:#aaa;margin:5px 0 12px;flex-grow:1}
+
+.btn{
+  width:100%;padding:10px 14px;border:none;border-radius:10px;
+  background:linear-gradient(90deg,#00c853,#7b2ff7);color:#fff;
+  font-weight:700;font-size:13px;cursor:pointer;transition:all .2s ease;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  text-decoration:none;
+}
+.btn:hover{filter:brightness(1.1);transform:scale(1.01)}
+.btn-green{background:#25D366;color:#fff}
+.btn-green:hover{background:#20ba5a}
+.btn-secondary{background:#2d2d4e;color:#fff;border:1px solid #444}
+.btn-secondary:hover{background:#3a3a60}
+
+input,select,textarea{
+  width:100%;padding:12px;margin:6px 0 12px;border-radius:10px;
+  border:1px solid #3d3d60;background:#202038;color:#fff;font-size:13px;
+  outline:none;transition:border-color .2s ease;
+}
+input:focus,select:focus,textarea:focus{border-color:#7b2ff7;background:#262642}
+label{font-size:12px;color:#bbb;font-weight:600}
+
+.frame-container{
+  max-width:440px;margin:15px auto;text-align:center;
+}
+.frame-box{
+  border:4px solid gold;border-radius:20px;padding:14px;
+  background:#18182c;margin:12px 0;transition:all .3s ease;
+}
+.frame-box.eid{border-color:#FFD700;box-shadow:0 0 25px rgba(255,215,0,0.35)}
+.frame-box.wedding{border-color:#ff4d6d;box-shadow:0 0 25px rgba(255,77,109,0.35)}
+.frame-box.product{border-color:#00c853;box-shadow:0 0 25px rgba(0,200,83,0.35)}
+.frame-box.circle img{border-radius:50%;aspect-ratio:1/1}
+
+.badge{background:#ff1744;color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block}
+.price{font-size:20px;font-weight:800;color:#00e676}
+.old{text-decoration:line-through;color:#888;font-size:13px;margin-left:6px}
+
+.bottom{
+  position:fixed;bottom:0;left:0;right:0;background:#141428;
+  display:flex;justify-content:space-around;padding:10px 0;
+  border-top:1px solid #2a2a45;z-index:90;backdrop-filter:blur(10px);
+}
+.bottom button{
+  background:none;border:none;color:#888;font-size:11px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:600;
+  transition:color .2s ease;
+}
+.bottom button.active{color:#00e676}
+
+.preview{
+  white-space:pre-wrap;background:#fff;color:#111;padding:16px;
+  border-radius:12px;margin-top:15px;font-size:13px;line-height:1.6;
+  border-left:5px solid #00c853;box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+
+.probox{
+  background:linear-gradient(135deg,#1f1f38,#291b45);
+  padding:22px;border-radius:20px;margin:15px auto;
+  border:2px solid gold;box-shadow:0 0 30px rgba(255,215,0,0.2);
+  text-align:center;max-width:540px;
+}
+
+/* In-page Toast */
+.toast-msg{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(30px);
+  background:#1f2937;color:#fff;padding:10px 20px;border-radius:30px;
+  font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.5);
+  border:1px solid #00e676;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(0.16,1,0.3,1);
+  z-index:999;display:flex;align-items:center;gap:8px;
+}
+.toast-msg.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* Modal Dialog */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);
+  z-index:100;display:none;align-items:center;justify-content:center;padding:15px;
+}
+.modal-overlay.open{display:flex}
+.modal-content{
+  background:#1a1a2e;border:1px solid #3d3d60;border-radius:18px;
+  padding:22px;max-width:440px;width:100%;color:#fff;position:relative;
+}
+.modal-close{
+  position:absolute;top:15px;right:15px;background:#2d2d4e;color:#fff;
+  border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;
+  font-size:14px;display:flex;align-items:center;justify-content:center;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>✨ Nova Design AI</h1>
+  <p>Nova Mart • by Nisar Studio • Lahore, Pakistan</p>
+  <div class="phone-badge">📞 0323-5052148</div>
+</header>
+
+<div class="tabs" role="tablist">
+  <button class="tab active" onclick="show('home',this)">🏠 Home</button>
+  <button class="tab" onclick="show('templates',this)">🎨 100 Templates</button>
+  <button class="tab" onclick="show('frame',this)">🖼️ Frame Maker</button>
+  <button class="tab" onclick="show('invoice',this)">🧾 Invoice</button>
+  <button class="tab" onclick="show('mart',this)">🛍️ Nova Mart</button>
+  <button class="tab" onclick="show('pro',this)">👑 PRO</button>
+</div>
+
+<!-- HOME -->
+<div id="home" class="section active">
+  <h2>🔥 Top 10 Templates</h2>
+  <div class="grid" id="top10"></div>
+
+  <h2 style="margin-top:24px">📐 Layout Catalog</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="info">
+        <h3>1x1 Square</h3>
+        <p>Instagram / FB Post (1080 x 1080)</p>
+        <button class="btn btn-secondary" onclick="selectLayout('1x1 Square')">Use in Frame Maker</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="info">
+        <h3>9:16 Story</h3>
+        <p>Reels / TikTok / WhatsApp Status (1080 x 1920)</p>
+        <button class="btn btn-secondary" onclick="selectLayout('9:16 Story')">Use in Frame Maker</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="info">
+        <h3>16:9 Landscape</h3>
+        <p>YouTube Thumbnail & Banner (1920 x 1080)</p>
+        <button class="btn btn-secondary" onclick="selectLayout('16:9 Landscape')">Use in Frame Maker</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="info">
+        <h3>A4 Print</h3>
+        <p>CV / Poster / Urdu Shadi Card (A4 Sheet)</p>
+        <button class="btn btn-secondary" onclick="selectLayout('A4 Print')">Use in Frame Maker</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 100 TEMPLATES -->
+<div id="templates" class="section">
+  <h2>🎨 100 Templates — Catalog</h2>
+  <input id="search" placeholder="🔍 Search template... Eid, CV, Wedding, Reels, Mart..." oninput="filterTpl()">
+  <div class="grid" id="allTpl"></div>
+</div>
+
+<!-- FRAME MAKER -->
+<div id="frame" class="section">
+  <h2>🖼️ Frame Maker</h2>
+  
+  <div class="frame-container">
+    <label>Apni Photo Chuno</label>
+    <input type="file" id="photoInput" accept="image/*" onchange="loadPhoto(event)">
+
+    <label>Frame Chuno</label>
+    <select id="frameType" onchange="changeFrame()">
+      <option value="eid">🌙 Eid Frame — Gold</option>
+      <option value="wedding">💍 Wedding Frame — Pink</option>
+      <option value="product">🛍️ Nova Mart Product Frame — Green</option>
+      <option value="circle">⭕ Circle DP Frame</option>
+    </select>
+
+    <label>Text Likho</label>
+    <input id="frameText" value="Eid Mubarak" oninput="updateFrame()">
+
+    <!-- Frame Live Preview -->
+    <div id="framePreview" class="frame-box eid">
+      <img id="userPhoto" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'><rect width='300' height='300' fill='%23222238'/><text x='50%25' y='46%25' dominant-baseline='middle' text-anchor='middle' fill='%23aaa' font-family='sans-serif' font-size='16'>Apni Photo Upload Karo</text><text x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' fill='%23666' font-family='sans-serif' font-size='12'>(Click Choose File above)</text></svg>" alt="Preview Photo" style="width:100%;border-radius:12px;display:block">
+      <h2 id="frameTextShow" style="color:gold;margin-top:10px;font-size:18px">Eid Mubarak</h2>
+      <p style="font-size:11px;color:#aaa;margin-top:2px">Nova Design AI • Nisar Studio • Lahore</p>
+    </div>
+
+    <label>Custom Border Color</label>
+    <input type="color" value="#FFD700" onchange="document.getElementById('framePreview').style.borderColor=this.value">
+
+    <button class="btn btn-green" onclick="shareFrameWA()">⬇️ Save & Share on WhatsApp</button>
+  </div>
+</div>
+
+<!-- INVOICE -->
+<div id="invoice" class="section">
+  <h2>🧾 Digital Invoice Generator</h2>
+  <label>Customer Name</label><input id="cName" placeholder="Ayesha Khan" value="Ayesha Khan">
+  <label>Phone Number</label><input id="cPhone" placeholder="+92 300 1234567" value="+92 300 1234567">
+  <label>Address</label><input id="cAddr" placeholder="Gulberg, Lahore" value="Gulberg, Lahore">
+  <label>Product Name</label><input id="pName" value="10000mAh Power Bank">
+  
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+    <div><label>Quantity</label><input type="number" id="qty" value="1" min="1" oninput="calc()"></div>
+    <div><label>Price (PKR)</label><input type="number" id="price" value="1899" oninput="calc()"></div>
+    <div><label>Discount (PKR)</label><input type="number" id="disc" value="0" oninput="calc()"></div>
+  </div>
+
+  <label>Payment Method</label>
+  <select id="pay">
+    <option>Cash on Delivery</option>
+    <option>JazzCash</option>
+    <option>Easypaisa</option>
+    <option>Bank Transfer</option>
+  </select>
+
+  <h3 style="margin:10px 0 14px">Total Payable: <span id="total" style="color:#00e676">PKR 1,899</span></h3>
+  
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <button class="btn btn-secondary" onclick="makeInvoice()">🧾 Preview Invoice</button>
+    <button class="btn btn-green" onclick="sendWA()">📲 WhatsApp pe Bhejo</button>
+  </div>
+
+  <div id="invPreview" class="preview" style="display:none"></div>
+</div>
+
+<!-- NOVA MART -->
+<div id="mart" class="section">
+  <h2>🛍️ Nova Mart Products</h2>
+  <p style="font-size:13px;color:#aaa;margin-top:2px">Direct WhatsApp Cash on Delivery across Lahore & Pakistan</p>
+  <div class="grid" id="martGrid"></div>
+</div>
+
+<!-- PRO -->
+<div id="pro" class="section">
+  <div class="probox">
+    <h2>👑 Nova Design AI — PRO</h2>
+    <p style="font-size:13px;color:#ccc;margin:8px 0 14px">100+ Premium Templates • No Watermark • Custom Branding • All Frames Unlocked</p>
+    <h3 style="color:#FFD700;font-size:20px">PKR 499 / Month • PKR 999 / Year</h3>
+    
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px">
+      <button class="btn" style="background:#ff0000" onclick="openProModal('JazzCash')">📱 JazzCash se Pay Karo</button>
+      <button class="btn" style="background:#00a651" onclick="openProModal('Easypaisa')">💚 Easypaisa se Pay Karo</button>
+    </div>
+    
+    <p style="font-size:11px;color:#aaa;margin-top:12px">Payment ke baad screenshot WhatsApp pe bhejein, aapka PRO account foran activate ho jayega.</p>
+  </div>
+</div>
+
+<!-- Bottom Navigation for Mobile -->
+<div class="bottom">
+  <button class="active" onclick="show('home',this)">🏠<span>Home</span></button>
+  <button onclick="show('templates',this)">🎨<span>Templates</span></button>
+  <button onclick="show('frame',this)">🖼️<span>Frame</span></button>
+  <button onclick="show('invoice',this)">🧾<span>Invoice</span></button>
+  <button onclick="show('mart',this)">🛍️<span>Mart</span></button>
+</div>
+
+<!-- In-page Toast Notification -->
+<div id="toast" class="toast-msg" role="status" aria-live="polite">
+  <span>✓</span>
+  <span id="toastText">Action successful</span>
+</div>
+
+<!-- PRO Payment Modal (Zero Dialog Error) -->
+<div id="proModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeProModal()">✕</button>
+    <h3 id="modalTitle" style="color:#FFD700;margin-bottom:6px">👑 Pay via JazzCash — PKR 499</h3>
+    <p style="font-size:12px;color:#ccc;margin-bottom:12px">Nisar Studio payment gateway</p>
+    
+    <div style="background:#141428;padding:12px;border-radius:10px;border:1px solid #333;margin-bottom:12px;font-size:13px">
+      <div>Account Title: <b style="color:#00e676">Nisar Studio</b></div>
+      <div style="margin-top:4px">Account Number: <b style="color:#FFD700">0323-5052148</b></div>
+      <div style="margin-top:4px">Amount: <b>PKR 499 (Monthly)</b></div>
+    </div>
+
+    <label for="proPhoneInput">Apna Mobile Number Enter Karein:</label>
+    <input type="text" id="proPhoneInput" placeholder="03235052148" value="0323-">
+
+    <button class="btn btn-green" onclick="confirmProPayment()">📲 Send Screenshot on WhatsApp</button>
+  </div>
+</div>
+
+<script>
+const whatsappNumber = "923235052148";
+const displayPhone = "0323-5052148";
+
+let currentPaymentMethod = "JazzCash";
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  const txt = document.getElementById('toastText');
+  if (!t || !txt) return;
+  txt.innerText = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+const templates = [
+  "Eid Mubarak - Gold Green","Eid Sale 50% OFF","YouTube Thumbnail - MY VLOG","CV Resume - Modern","Wedding Card - Urdu Shadi Card","Nova Mart - Product Ad","Business Visiting Card","Ramzan Offer 40% OFF","14 August Azadi Mubarak","Instagram Post - New Collection",
+  "Instagram Story - Sale Alert","Facebook Post - Shop Opening","Facebook Cover - Business","TikTok Thumbnail - Viral","YouTube Banner - Channel Art","WhatsApp Status - Eid Offer","WhatsApp DP - Islamic","Pinterest Pin - Fashion","LinkedIn Post - Job Hiring","Twitter Post - Announcement",
+  "Reels Cover - Trending","Story Highlight Cover","Live Sale Announcement","Giveaway Post","Follow Us Post","Thank You Followers","New Video Alert","Viral Meme Template","Shop Banner - Grand Opening","Price List - Mobile Shop",
+  "Visiting Card - Urdu","Visiting Card - English","Sale Poster - 50% OFF","Discount Poster - Buy 1 Get 1","New Arrival Poster","Cash on Delivery Poster","Menu Card - Restaurant","Invoice - Simple","Quotation - Business","Hiring Post - Staff Chahiye",
+  "Shop Timing Post","Delivery Available Post","Customer Review Post","Franchise Offer Post","Brand Logo - Minimal","Brand Logo - Luxury","Packaging Label","Sticker - Price Tag","Eid Mubarak - Urdu Calligraphy","Eid Sale - Clothes",
+  "Ramzan Offer - Grocery","Ramzan Calendar","Jumma Mubarak Post","Pakistan Zindabad Poster","Mehndi Card - Yellow","Barat Invitation","Walima Card - Luxury","Nikkah Announcement","Birthday Card - Bachon","Birthday Post - Friend",
+  "Dua Post - Umrah Mubarak","Hajj Mubarak Card","New Baby - Mubarak Ho","Result Mubarak - Pass","Teachers Day Post","Nova Mart - Smart Watch Sale","Nova Mart - Earbuds Offer","Nova Mart - Power Bank Ad","Nova Mart - Charger Sale","Nova Mart - LED Lamp Ad",
+  "Nova Mart - Winter Collection","Nova Mart - Summer Sale","Nova Mart - Free Delivery","Nova Mart - Order on WhatsApp","Nova Mart - Customer Feedback","Nova Mart - Stock Clearance","Nova Mart - Limited Stock","Nova Mart - Trending Product","Nova Mart - Combo Offer","Nova Mart - Eid Mega Sale",
+  "Nova Mart - 11.11 Sale","Nova Mart - New Shop Banner","Nova Mart - Price Drop","Nova Mart - Thank You Order","CV Resume - Simple Urdu","School Assignment Cover","Presentation - Business","Presentation - School","Certificate - Course","Certificate - Appreciation",
+  "ID Card - School","ID Card - Office","Flyer - Tuition Classes","Flyer - Academy Admission","Exam Tips Post","Motivational Quote - Urdu","Motivational Quote - English","Video Intro - YouTube","Video Outro - Subscribe","Product Promo Video - 15 Sec",
+  "Reels Template - Shop Promo","TikTok Video - Before After","Thumbnail - Gaming","Eid Frame - Golden","Wedding Frame - Pink","Product Frame - Green"
+];
+
+const imgs = [
+  "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400",
+  "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=400",
+  "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400",
+  "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400",
+  "https://images.unsplash.com/photo-1519741497674-611481863552?w=400",
+  "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400",
+  "https://images.unsplash.com/photo-1589041127168-9b1915731dc3?w=400",
+  "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?w=400",
+  "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400",
+  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400"
+];
+
+function renderTpl(list, el) {
+  document.getElementById(el).innerHTML = list.map((t, i) => `
+    <div class="card">
+      <img src="${imgs[i % 10]}" alt="${t}">
+      <div class="info">
+        <h3>${t}</h3>
+        <p>Nova Design AI • Free / Pro</p>
+        <button class="btn" onclick="useTpl('${t.replace(/'/g, "\\'")}')">Use Template</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+renderTpl(templates.slice(0, 10), 'top10');
+renderTpl(templates, 'allTpl');
+
+function filterTpl() {
+  const q = document.getElementById('search').value.toLowerCase();
+  renderTpl(templates.filter(t => t.toLowerCase().includes(q)), 'allTpl');
+}
+
+function useTpl(t) {
+  show('frame', null);
+  document.getElementById('frameText').value = t;
+  updateFrame();
+  showToast(`Template "${t}" Frame Maker mein load ho gaya!`);
+}
+
+function selectLayout(layoutName) {
+  show('frame', null);
+  document.getElementById('frameText').value = layoutName;
+  updateFrame();
+  showToast(`Layout "${layoutName}" Frame Maker mein set ho gaya!`);
+}
+
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.bottom button').forEach(b => b.classList.remove('active'));
+
+  if (btn) {
+    btn.classList.add('active');
+  } else {
+    document.querySelectorAll(`button[onclick*="'${id}'"]`).forEach(b => b.classList.add('active'));
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function loadPhoto(e) {
+  if (!e.target.files || !e.target.files[0]) return;
+  const r = new FileReader();
+  r.onload = () => {
+    document.getElementById('userPhoto').src = r.result;
+    showToast("Photo kamyabi se load ho gayi!");
+  };
+  r.readAsDataURL(e.target.files[0]);
+}
+
+function changeFrame() {
+  const f = document.getElementById('frameType').value;
+  const p = document.getElementById('framePreview');
+  p.className = 'frame-box ' + f;
+  showToast(`Frame style: ${f.toUpperCase()} apply ho gaya`);
+}
+
+function updateFrame() {
+  const txt = document.getElementById('frameText').value;
+  document.getElementById('frameTextShow').innerText = txt || "Eid Mubarak";
+}
+
+function shareFrameWA() {
+  const txt = document.getElementById('frameText').value;
+  const ftype = document.getElementById('frameType').value;
+  const msg = `Assalam o Alaikum! Maine Nova Design AI se apna frame banaya hai:\n\nStyle: ${ftype.toUpperCase()}\nText: "${txt}"\n\nNisar Studio Lahore - 0323-5052148`;
+  showToast("WhatsApp pe share ho raha hai...");
+  window.open('https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(msg));
+}
+
+function calc() {
+  const q = +document.getElementById('qty').value || 1;
+  const pr = +document.getElementById('price').value || 0;
+  const d = +document.getElementById('disc').value || 0;
+  const tot = Math.max(0, (q * pr) - d);
+  document.getElementById('total').innerText = 'PKR ' + tot.toLocaleString();
+  return tot;
+}
+
+function makeInvoice() {
+  const tot = calc();
+  const cName = document.getElementById('cName').value.trim() || 'Valued Customer';
+  const cPhone = document.getElementById('cPhone').value.trim() || 'N/A';
+  const cAddr = document.getElementById('cAddr').value.trim() || 'N/A';
+  const pName = document.getElementById('pName').value.trim() || 'Product';
+  const qty = document.getElementById('qty').value;
+  const price = document.getElementById('price').value;
+  const disc = document.getElementById('disc').value;
+  const pay = document.getElementById('pay').value;
+
+  const txt = `NOVA MART — by Nisar Studio\nDigital Invoice #001\n--------------------------------\nCustomer: ${cName}\nPhone: ${cPhone}\nAddress: ${cAddr}\nProduct: ${pName}\nQuantity: ${qty} x PKR ${Number(price).toLocaleString()}\nDiscount: PKR ${Number(disc).toLocaleString()}\nPayment Method: ${pay}\n--------------------------------\nTOTAL: PKR ${tot.toLocaleString()}\n\nShukriya! Order Confirm Hai.\nContact: 0323-5052148`;
+  
+  const p = document.getElementById('invPreview');
+  p.style.display = 'block';
+  p.innerText = txt;
+  showToast("Invoice generate ho gaya!");
+}
+
+function sendWA() {
+  makeInvoice();
+  const msg = document.getElementById('invPreview').innerText;
+  window.open('https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(msg));
+}
+
+function openProModal(method) {
+  currentPaymentMethod = method;
+  document.getElementById('modalTitle').innerText = `👑 Pay via ${method} — PKR 499`;
+  document.getElementById('proModal').classList.add('open');
+}
+
+function closeProModal() {
+  document.getElementById('proModal').classList.remove('open');
+}
+
+function confirmProPayment() {
+  const phone = document.getElementById('proPhoneInput').value.trim() || displayPhone;
+  closeProModal();
+  const msg = `Mujhe Nova Design AI PRO chahiye!\nMethod: ${currentPaymentMethod}\nMera Phone Number: ${phone}\nAmount: PKR 499 (Nisar Studio: ${displayPhone})\nPayment Screenshot bhej raha hun.`;
+  showToast("WhatsApp khul raha hai confirmation ke liye...");
+  window.open('https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(msg));
+}
+
+const products = [
+  { name: "10000mAh Power Bank", price: 1899, old: 3150, off: "40% OFF", img: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400" },
+  { name: "Smart Watch Ultra", price: 2499, old: 3999, off: "30% OFF", img: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400" },
+  { name: "Earbuds Pro Wireless", price: 1499, old: 2499, off: "40% OFF", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400" },
+  { name: "Fast Charger 25W PD", price: 999, old: 1499, off: "33% OFF", img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400" },
+  { name: "LED Desk Lamp", price: 1299, old: 1999, off: "35% OFF", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400" },
+  { name: "Bluetooth Speaker Pro", price: 2999, old: 4999, off: "40% OFF", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400" }
+];
+
+document.getElementById('martGrid').innerHTML = products.map(p => `
+  <div class="card">
+    <img src="${p.img}" alt="${p.name}">
+    <div class="info">
+      <span class="badge">${p.off}</span>
+      <h3 style="margin-top:6px">${p.name}</h3>
+      <p>Free Delivery • Cash on Delivery (COD)</p>
+      <div>
+        <span class="price">PKR ${p.price.toLocaleString()}</span>
+        <span class="old">PKR ${p.old.toLocaleString()}</span>
+      </div>
+      <button class="btn btn-green" style="margin-top:10px" onclick="window.open('https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent('Assalam o Alaikum! Mujhe ' + '${p.name}' + ' order karna hai - PKR ' + '${p.price}'))">
+        Order on WhatsApp
+      </button>
+    </div>
+  </div>
+`).join('');
+</script>
+</body>
 </html>
 
